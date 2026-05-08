@@ -12,7 +12,7 @@
         {
             "name": "device",
             "type": "device",
-            "filter": "driver_id=intex_spa"
+            "filter": "driver_id=intex_spa|bestway"
         }
     ]
 }

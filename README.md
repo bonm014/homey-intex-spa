@@ -7,6 +7,8 @@ Current features:
 - Set target water temperature
 - Control heater, blowers, filters
 - Toggle power
+- Meter Power (Bestway only)
+- Error handling (Bestway only)
 
 
 # Prerequisites
@@ -20,6 +22,7 @@ The underlying communication between the MQTT broker and the SPA is done by a DI
 - Intex SimpleSpa SB–B20
 - Intex PureSpa SJB-HS
 - Intex PureSpa SSP-H (not tested)
+- Bestway WIFI remote (https://github.com/visualapproach/WiFi-remote-for-Bestway-Lay-Z-SPA)
 
 
 All the commands and measures of the Spa are available.

@@ -1,0 +1,62 @@
+{
+  "name": {
+    "en": "bestway"
+  },
+  "class": "heater",
+  "capabilities": [
+    "measure_temperature",
+    "target_temperature",
+    "measure_tempAmbient",
+    "alarm_heat",
+    "measure_lastrefresh",
+    "bubble",
+    "filter",
+    "heater",
+    "power"
+  ],
+  "capabilitiesOptions": {
+    "target_temperature": {
+      "min": 20,
+      "max": 40,
+      "step": 1
+    }
+  },
+  "platforms": [
+    "local"
+  ],
+  "connectivity": [
+    "lan"
+  ],
+  "images": {
+    "small": "{{driverAssetsPath}}/images/small.png",
+    "large": "{{driverAssetsPath}}/images/large.png",
+    "xlarge": "{{driverAssetsPath}}/images/xlarge.png"
+  },
+  "settings": [
+    {
+      "type": "group",
+      "label": {
+        "en": "MQTT Configuration"
+      },
+      "children": [
+        {
+          "id": "mqtt_topic",
+          "type": "text",
+          "label": {
+            "en": "MQTT Topic"
+          },
+          "placeholder": {
+            "en": "layzspa"
+          },
+          "value": ""
+        }
+      ]
+    }
+  ],
+  "pair": [
+    {
+      "id": "mqtt_config",
+      "title": { "en": "MQTT Configuratie" }
+    }
+  ]
+}

@@ -1,0 +1,14 @@
+{
+    "type": "number",
+    "title": {
+        "en": "Ambient temperature",
+        "fr": "Température Ambient"
+    },
+    "getable": true,
+    "setable": true,
+    "uiComponent": "sensor",
+    "units": {
+        "en": "°C"
+    },
+    "icon": "assets/icons/capabilities/tempAmbient.svg"
+}

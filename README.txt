@@ -3,7 +3,10 @@ Adds support of Intex Spa throught MQTT protocol.
 Current features:
 - Get water temperature
 - Set target water temperature
-- Control heater, blow
+- Control heater, blowers, filters
+- Toggle power
+- Meter Power (Bestway only)
+- Error handling (Bestway only)
 
 
 Prerequisites:
@@ -17,6 +20,7 @@ This system is only compatible for these models:
 - Intex SimpleSpa SB–B20
 - Intex PureSpa SJB-HS
 - Intex PureSpa SSP-H (not tested)
+- Bestway WIFI remote (https://github.com/visualapproach/WiFi-remote-for-Bestway-Lay-Z-SPA)
 
 
 All the commands and measures of the Spa are available.

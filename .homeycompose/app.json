@@ -1,7 +1,7 @@
 {
   "id": "fr.dvilleneuve.intex_spa",
   "version": "1.0.1",
-  "compatibility": ">=5.0.0",
+  "compatibility": ">=12.2.0",
   "sdk": 3,
   "brandColor": "#2696A8",
   "platforms": [

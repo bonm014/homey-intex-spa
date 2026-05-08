@@ -48,7 +48,7 @@ class IntexSpaApp extends Homey.App {
   }
 
   onMessage(fullTopic, message) {
-    this.log(`<< ${fullTopic}: ${JSON.stringify(message, null, 2)}`);
+    //this.log(`<< ${fullTopic}: ${JSON.stringify(message, null, 2)}`);
 
     this.lastMqttMessage = Date.now();
 
@@ -65,8 +65,12 @@ class IntexSpaApp extends Homey.App {
     });
   }
 
-  sendMessage(topic, payload) {
-    const fullTopic = topic.startsWith(this.mqttTopicRoot + '/') ? topic : `${this.mqttTopicRoot}/${topic}`
+  sendMessage(topic, payload, driver = 'intex_spa') {
+    const fullTopic = topic;
+    
+    if(driver === 'intex_spa') {
+      topic.startsWith(this.mqttTopicRoot + '/') ? topic : `${this.mqttTopicRoot}/${topic}`
+    }
 
     this.log(`>> ${fullTopic}: ${payload}`);
 
@@ -85,6 +89,23 @@ class IntexSpaApp extends Homey.App {
     });
   }
 
+  unsubscribeTopic(topicName) {
+    if (!this.clientAvailable)
+      return;
+
+    this.log(`UnSubscribing to topic: ${topicName}`);
+
+    return this.MQTTClient.post('unsubscribe', { topic: topicName }, error => {
+      if (error) {
+        this.log(`Can not unsubscribe to topic ${topicName}, error: ${error}`)
+      } else {
+        this.log(`Sucessfully unsubscribed to topic: ${topicName}`);
+      }
+    }).catch(error => {
+      this.log(`Error while unsubscribing to ${topicName}. ${error}`);
+    });
+  }
+
   subscribeTopic(topicName) {
     if (!this.clientAvailable)
       return;
@@ -93,7 +114,7 @@ class IntexSpaApp extends Homey.App {
 
     return this.MQTTClient.post('subscribe', { topic: topicName }, error => {
       if (error) {
-        this.log(`Can not subscrive to topic ${topicName}, error: ${error}`)
+        this.log(`Can not subscribe to topic ${topicName}, error: ${error}`)
       } else {
         this.log(`Sucessfully subscribed to topic: ${topicName}`);
       }

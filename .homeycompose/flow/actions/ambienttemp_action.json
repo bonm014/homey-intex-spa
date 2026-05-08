@@ -1,0 +1,23 @@
+{
+    "id": "ambienttemp_action",
+    "title": {
+        "en": "Change Ambient temp"
+    },
+    "titleFormatted": {
+        "en": "Change Ambient temp to [[temp]]"
+    },
+    "args": [
+        {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=bestway"
+        },
+        {
+          "name": "temp",
+          "type": "number",
+          "label": {
+            "en": "Temperature"
+          }
+        }
+    ]
+}

@@ -1,0 +1,35 @@
+<div>
+  <input type="text" id="mqtt_topic" placeholder="spa/layzspa" />
+  <button id="btn_next">Apparaat aanmaken</button>
+  <p id="error" style="color:red; display:none;"></p>
+</div>
+
+<script>
+  document.getElementById('btn_next').addEventListener('click', async () => {
+    const topic = document.getElementById('mqtt_topic').value.trim();
+
+    if (!topic) {
+      document.getElementById('error').style.display = 'block';
+      document.getElementById('error').textContent = 'Vul een topic in';
+      return;
+    }
+
+    try {
+      await Homey.createDevice({
+        name: topic,
+        data: {
+          id: `bestway-${topic}`
+        },
+        settings: {
+          mqtt_topic: topic
+        }
+      });
+
+      await Homey.done();
+    } catch (err) {
+      Homey.alert('Fout: ' + err.message);
+    }
+  });
+
+  window.onHomeyReady = () => Homey.ready();
+</script>
