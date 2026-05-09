@@ -5,6 +5,7 @@ const Homey = require('homey');
 module.exports = class BestwayDevice extends Homey.Device {
   values = {};
   mqttTopic = "";
+  tempUnit = 1;
 
   /**
    * onInit is called when the device is initialized.
@@ -62,7 +63,14 @@ module.exports = class BestwayDevice extends Homey.Device {
     this.registerSwitchAction('power_action', 'power');
 
     this.homey.flow.getActionCard("ambienttemp_action").registerRunListener(async (args, state) => {
-      await args.device.setCapabilityValue('measure_tempAmbient', args.temp);
+      const topic = `${this.mqttTopic}/command`;
+      const mapper = await this.commandTopicFromCapability("measure_tempAmbient");
+      const mqttValue = args.temp;
+
+      this.log(`Sending message to topic: ${topic}, command: ${mapper}, value: ${mqttValue}`);
+      const mqttMessage = `{"CMD":${mapper},"VALUE":${mqttValue},"XTIME":0,"INTERVAL":0}`;
+
+      await this.driver.sendMessage(topic, mqttMessage);
     });
     
 
@@ -105,6 +113,11 @@ module.exports = class BestwayDevice extends Homey.Device {
       case 'tempSet':
       case 'target_temperature':
         return 0;
+      case 'measure_tempAmbient':
+        if(this.tempUnit==0)
+          return 14;
+        else
+          return 15;
       default:
         return null;
     }
@@ -214,6 +227,7 @@ module.exports = class BestwayDevice extends Homey.Device {
           this.setCapabilityValue('bubble', status.AIR  == 1);
 
           //UNITSTATE (0=F, 1=C)
+          this.tempUnit = status.UNT;
           if(status.UNT == 0) {
             this.setCapabilityValue('target_temperature', status.TGTF);
             this.setCapabilityValue('measure_temperature', status.TMPF);
